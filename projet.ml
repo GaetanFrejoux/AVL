@@ -140,7 +140,80 @@ let desequilibre(nbTree,sizeTree,nbMax : int*int*int) : int =
 (*2.1 Implantation d'un module Avl*)
 
 (*2.1.1*)
+let rg(tree : 'a bs_tree) : 'a bs_tree =
+  if( not(isEmpty(tree)) && not(isEmpty(rson(tree))))
+  then rooting(
+           root(rson(tree)),
+           rooting(root(tree),lson(tree),lson(rson(tree))),
+           rson(rson(tree))
+         )
+  else failwith "Error, cannot rotate this tree"
+
+;;
+
+let rd(tree : 'a bs_tree) : 'a bs_tree =
+  if( not(isEmpty(tree)) && not(isEmpty(lson(tree))))
+  then rooting(
+           root(lson(tree)),
+           lson(lson(tree))),
+           rooting(root(tree),rson(tree),rson(lson(tree))
+         )
+  else failwith "Error, cannot rotate this tree"
+
+;;
+
+let rgd(tree : 'a bs_tree) : 'a bs_tree =
+  if( not(isEmpty(tree))
+      && not(isEmpty(lson(tree)))
+      && (not(isEmpty(rson(tree)))
+          && not(isEmpty(rson(lson(tree))))))
+  then rooting(
+           root(rson(lson(tree))),
+           rooting(
+               root(lson(tree)),
+               lson(lson(tree)),
+               lson(rson(lson(tree)))
+             ),
+           rooting(
+               root(tree),
+               rson(rson(lson(tree))),
+               rson(tree)
+             )
+         )
+  else failwith "Error, cannot rotate this tree"
+    
+;;
+
+
+
+let rdg(tree : 'a bs_tree) : 'a bs_tree =
+  if( not(isEmpty(tree))
+      && not(isEmpty(rson(tree)))
+      && (not(isEmpty(lson(tree)))
+          && not(isEmpty(lson(rson(tree))))))
+  then  rooting(
+            root(lson(rson(tree))),
+            rooting(
+                root(tree),
+                lson(lson(rson(tree))),
+                lson(tree)
+              ),
+            rooting(
+                root(rson(tree)),
+                rson(rson(tree)),
+                rson(lson(rson(tree)))
+              )
+         )
+  else failwith "Error, cannot rotate this tree"
+    
+;;
 (*2.1.2*)
+
+let reequilibrer(tree : 'a bs_tree) : 'a bs_tree =
+  tree
+;;
+
+  
 (*2.1.3*)
 (*2.1.4*)
 
