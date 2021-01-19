@@ -12,8 +12,11 @@ open Bst;;
 #load "btree.cmo";;
 #load "bst.cmo";;
 
-(*1 Arbres binaires de recherche*)
 
+
+(*Fonction auxiliaire*)
+
+(*Fonction permettant de calculer la hauteur d'un arbre binaire*)
 let rec height(tree : 'a bs_tree) : int =
   if(isEmpty(tree) || (isEmpty(lson(tree))&&isEmpty(rson(tree))))
   then 0
@@ -21,34 +24,113 @@ let rec height(tree : 'a bs_tree) : int =
 ;;
 
 
-let bst_rnd_create(n : int) : int bs_tree =
-  let list : int list ref= ref [] in
-  for i = 0 to n do
-    list := (Random.int 10000000)::(!list);
-  done;
-  bst_lbuild(!list)
-;;
 
 
-let equilibre(n : int) : int =
-  let somme : int ref = ref 0 and
-      t : int bs_tree ref = ref (empty()) in
-  for i = 0 to n do
-    t := bst_rnd_create(10000);
-    somme := !somme + abs (height(lson(!t)) - height(rson(!t)));
-  done;
-  (!somme)/n
-;;
 
+
+
+
+
+
+
+
+(*1 Arbres binaires de recherche*)
 
 
 (*1.1*)
 
+(*Fonctions*)
+
+(*Applications*)
+(*Fonction créant un arbre binaire de recherche avec des valeurs aléatoires*)
+let bst_rnd_create(sizeTree,nbMax : int*int) : int bs_tree =
+  Random.self_init ();
+  let answer : int bs_tree ref = ref (empty()) in
+  
+  for i = 0 to sizeTree do
+    answer :=  bst_linsert(!answer , Random.int nbMax)
+  done;
+  !answer
+;;
+
+
+
+
 (*1.2*)
+
+(*Fonctions*)
+
+(*Fonction qui calcule le désequilibre d'un arbre de recherche*)
+let desequilibre(nbTree,sizeTree,nbMax : int*int*int) : int =
+  let somme : int ref = ref 0 and
+      t : int bs_tree ref = ref (empty()) in
+  for i = 0 to nbTree do
+    t := bst_rnd_create(sizeTree,nbMax);
+    somme := !somme + abs (height(lson(!t)) - height(rson(!t)));
+  done;
+  (!somme)/nbTree
+;;
+
+(*Applications*)
+
+(*desequilibre(1,10,1000);;*)
+(*Resultat obtenu : 8*)
+
+(*desequilibre(1,100,1000);;*)
+(*Resultat obtenu : 14*)
+
+(*desequilibre(1,1000,1000);;*)
+(*Resultat obtenu : 2*)
+
+(*desequilibre(10,1000,1000);;*)
+(*Resultat obtenu : 5*)
+
+(*desequilibre(100,1000,1000);;*)
+(*Resultat obtenu : 5*)
+
+(*desequilibre(1000,1000,1000);;*)
+(*Resultat obtenu : 5*)
+
+(*desequilibre(10000,1000,1000);;*)
+(*Resultat obtenu : 5*)
+
+(*desequilibre(10000,10000,1000);;*)
+(*Resultat obtenu : 5*)
+
+
+
+(*Nous observons lors de nos tests que les résultats tendent vers 5.*)
 
 (*1.3*)
 
+
+
+(*Fonctions*)
+
+(*Applications*)
+
+(*Longueurs aléatoires*)
+(*Longueurs fixe*)
+(*Longueurs croissante*)
+(*Longueurs décroissante*)
+
+
+
+
 (*1.4*)
+
+(*Fonctions*)
+
+(*Applications*)
+
+
+
+
+
+
+
+
+
 
 
 
